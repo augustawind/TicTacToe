@@ -1,0 +1,766 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><title
+    >TicTacToe</title
+    ><link href="ocean.css" rel="stylesheet" type="text/css" title="Ocean"
+     /><script src="haddock-util.js" type="text/javascript"
+    ></script
+    ><script type="text/javascript"
+    >//<![CDATA[
+window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
+//]]>
+</script
+    ></head
+  ><body
+  ><div id="package-header"
+    ><ul class="links" id="page-menu"
+      ><li
+	><a href="index.html"
+	  >Contents</a
+	  ></li
+	><li
+	><a href="doc-index.html"
+	  >Index</a
+	  ></li
+	></ul
+      ><p class="caption" class="empty"
+      >&nbsp;</p
+      ></div
+    ><div id="content"
+    ><div id="module-header"
+      ><table class="info"
+	><tr
+	  ><th
+	    >Safe Haskell</th
+	    ><td
+	    >Safe-Infered</td
+	    ></tr
+	  ></table
+	><p class="caption"
+	>TicTacToe</p
+	></div
+      ><div id="table-of-contents"
+      ><p class="caption"
+	>Contents</p
+	><ul
+	><li
+	  ><a href="#g:1"
+	    >Core functions
+</a
+	    ></li
+	  ><li
+	  ><a href="#g:2"
+	    >Supporting functions
+</a
+	    ></li
+	  ><li
+	  ><a href="#g:3"
+	    >Data.Map function aliases
+</a
+	    ></li
+	  ></ul
+	></div
+      ><div id="synopsis"
+      ><p id="control.syn" class="caption expander" onclick="toggleSection('syn')"
+	>Synopsis</p
+	><ul id="section.syn" class="hide" onclick="toggleSection('syn')"
+	><li class="src short"
+	  ><span class="keyword"
+	    >data</span
+	    >  <a href="#t:Game"
+	    >Game</a
+	    >  = <a href="#v:Game"
+	    >Game</a
+	    > {<ul class="subs"
+	    ><li
+	      ><a href="#v:getPlays"
+		>getPlays</a
+		> :: Map <a href="TicTacToe.html#t:Point"
+		>Point</a
+		> <a href="TicTacToe.html#t:Mark"
+		>Mark</a
+		></li
+	      ><li
+	      ><a href="#v:getStatus"
+		>getStatus</a
+		> :: <a href="TicTacToe.html#t:EndStatus"
+		>EndStatus</a
+		></li
+	      ></ul
+	    >}</li
+	  ><li class="src short"
+	  ><span class="keyword"
+	    >data</span
+	    >  <a href="#t:Point"
+	    >Point</a
+	    >  = <a href="#v:Point"
+	    >Point</a
+	    > Int Int</li
+	  ><li class="src short"
+	  ><span class="keyword"
+	    >data</span
+	    >  <a href="#t:Mark"
+	    >Mark</a
+	    > <ul class="subs"
+	    ><li
+	      >= <a href="#v:X"
+		>X</a
+		>  </li
+	      ><li
+	      >| <a href="#v:O"
+		>O</a
+		>  </li
+	      ></ul
+	    ></li
+	  ><li class="src short"
+	  ><span class="keyword"
+	    >data</span
+	    >  <a href="#t:EndStatus"
+	    >EndStatus</a
+	    > <ul class="subs"
+	    ><li
+	      >= <a href="#v:Undecided"
+		>Undecided</a
+		>  </li
+	      ><li
+	      >| <a href="#v:Winner"
+		>Winner</a
+		> <a href="TicTacToe.html#t:PlayerName"
+		>PlayerName</a
+		>  </li
+	      ></ul
+	    ></li
+	  ><li class="src short"
+	  ><span class="keyword"
+	    >type</span
+	    > <a href="#t:PlayerName"
+	    >PlayerName</a
+	    > = String</li
+	  ><li class="src short"
+	  ><span class="keyword"
+	    >data</span
+	    >  <a href="#t:Direction"
+	    >Direction</a
+	    > <ul class="subs"
+	    ><li
+	      >= <a href="#v:N"
+		>N</a
+		>  </li
+	      ><li
+	      >| <a href="#v:NE"
+		>NE</a
+		>  </li
+	      ><li
+	      >| <a href="#v:E"
+		>E</a
+		>  </li
+	      ><li
+	      >| <a href="#v:SE"
+		>SE</a
+		>  </li
+	      ><li
+	      >| <a href="#v:S"
+		>S</a
+		>  </li
+	      ><li
+	      >| <a href="#v:SW"
+		>SW</a
+		>  </li
+	      ><li
+	      >| <a href="#v:W"
+		>W</a
+		>  </li
+	      ><li
+	      >| <a href="#v:NW"
+		>NW</a
+		>  </li
+	      ></ul
+	    ></li
+	  ><li class="src short"
+	  ><a href="#v:newGame"
+	    >newGame</a
+	    > :: <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    ></li
+	  ><li class="src short"
+	  ><a href="#v:makePlay"
+	    >makePlay</a
+	    > :: <a href="TicTacToe.html#t:Mark"
+	    >Mark</a
+	    > -&gt; <a href="TicTacToe.html#t:Point"
+	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    ></li
+	  ><li class="src short"
+	  ><a href="#v:ticTacToe"
+	    >ticTacToe</a
+	    > :: <a href="TicTacToe.html#t:Mark"
+	    >Mark</a
+	    > -&gt; <a href="TicTacToe.html#t:Point"
+	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; Bool</li
+	  ><li class="src short"
+	  ><a href="#v:threeInARow"
+	    >threeInARow</a
+	    > :: <a href="TicTacToe.html#t:Mark"
+	    >Mark</a
+	    > -&gt; <a href="TicTacToe.html#t:Point"
+	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Direction"
+	    >Direction</a
+	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; Bool</li
+	  ><li class="src short"
+	  ><a href="#v:inBounds"
+	    >inBounds</a
+	    > :: <a href="TicTacToe.html#t:Point"
+	    >Point</a
+	    > -&gt; Bool</li
+	  ><li class="src short"
+	  ><a href="#v:isValidPlay"
+	    >isValidPlay</a
+	    > :: <a href="TicTacToe.html#t:Point"
+	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; Bool</li
+	  ><li class="src short"
+	  ><a href="#v:markAt"
+	    >markAt</a
+	    > :: <a href="TicTacToe.html#t:Point"
+	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; Maybe <a href="TicTacToe.html#t:Mark"
+	    >Mark</a
+	    ></li
+	  ><li class="src short"
+	  ><a href="#v:played"
+	    >played</a
+	    > :: <a href="TicTacToe.html#t:Point"
+	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; Bool</li
+	  ><li class="src short"
+	  ><a href="#v:notPlayed"
+	    >notPlayed</a
+	    > :: <a href="TicTacToe.html#t:Point"
+	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; Bool</li
+	  ></ul
+	></div
+      ><div id="interface"
+      ><h1
+	>Documentation</h1
+	><div class="top"
+	><p class="src"
+	  ><span class="keyword"
+	    >data</span
+	    >  <a name="t:Game" class="def"
+	    >Game</a
+	    >  </p
+	  ><div class="doc"
+	  ><p
+	    >A game is a mapping of points to marks and an end status.
+</p
+	    ></div
+	  ><div class="subs constructors"
+	  ><p class="caption"
+	    >Constructors</p
+	    ><table
+	    ><tr
+	      ><td class="src"
+		><a name="v:Game" class="def"
+		  >Game</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td colspan="2"
+		><div class="subs fields"
+		  ><p class="caption"
+		    >Fields</p
+		    ><dl
+		    ><dt class="src"
+		      ><a name="v:getPlays" class="def"
+			>getPlays</a
+			> :: Map <a href="TicTacToe.html#t:Point"
+			>Point</a
+			> <a href="TicTacToe.html#t:Mark"
+			>Mark</a
+			></dt
+		      ><dd class="doc empty"
+		      >&nbsp;</dd
+		      ><dt class="src"
+		      ><a name="v:getStatus" class="def"
+			>getStatus</a
+			> :: <a href="TicTacToe.html#t:EndStatus"
+			>EndStatus</a
+			></dt
+		      ><dd class="doc empty"
+		      >&nbsp;</dd
+		      ></dl
+		    ><div class="clear"
+		    ></div
+		    ></div
+		  ></td
+		></tr
+	      ></table
+	    ></div
+	  ><div class="subs instances"
+	  ><p id="control.i:Game" class="caption collapser" onclick="toggleSection('i:Game')"
+	    >Instances</p
+	    ><div id="section.i:Game" class="show"
+	    ><table
+	      ><tr
+		><td class="src"
+		  >Show <a href="TicTacToe.html#t:Game"
+		    >Game</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		></table
+	      ></div
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><span class="keyword"
+	    >data</span
+	    >  <a name="t:Point" class="def"
+	    >Point</a
+	    >  </p
+	  ><div class="doc"
+	  ><p
+	    >A point is two coordinates.
+</p
+	    ></div
+	  ><div class="subs constructors"
+	  ><p class="caption"
+	    >Constructors</p
+	    ><table
+	    ><tr
+	      ><td class="src"
+		><a name="v:Point" class="def"
+		  >Point</a
+		  > Int Int</td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ></table
+	    ></div
+	  ><div class="subs instances"
+	  ><p id="control.i:Point" class="caption collapser" onclick="toggleSection('i:Point')"
+	    >Instances</p
+	    ><div id="section.i:Point" class="show"
+	    ><table
+	      ><tr
+		><td class="src"
+		  >Eq <a href="TicTacToe.html#t:Point"
+		    >Point</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td class="src"
+		  >Ord <a href="TicTacToe.html#t:Point"
+		    >Point</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td class="src"
+		  >Show <a href="TicTacToe.html#t:Point"
+		    >Point</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		></table
+	      ></div
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><span class="keyword"
+	    >data</span
+	    >  <a name="t:Mark" class="def"
+	    >Mark</a
+	    >  </p
+	  ><div class="doc"
+	  ><p
+	    >A mark is either X or O.
+</p
+	    ></div
+	  ><div class="subs constructors"
+	  ><p class="caption"
+	    >Constructors</p
+	    ><table
+	    ><tr
+	      ><td class="src"
+		><a name="v:X" class="def"
+		  >X</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a name="v:O" class="def"
+		  >O</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ></table
+	    ></div
+	  ><div class="subs instances"
+	  ><p id="control.i:Mark" class="caption collapser" onclick="toggleSection('i:Mark')"
+	    >Instances</p
+	    ><div id="section.i:Mark" class="show"
+	    ><table
+	      ><tr
+		><td class="src"
+		  >Eq <a href="TicTacToe.html#t:Mark"
+		    >Mark</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td class="src"
+		  >Ord <a href="TicTacToe.html#t:Mark"
+		    >Mark</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td class="src"
+		  >Show <a href="TicTacToe.html#t:Mark"
+		    >Mark</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		></table
+	      ></div
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><span class="keyword"
+	    >data</span
+	    >  <a name="t:EndStatus" class="def"
+	    >EndStatus</a
+	    >  </p
+	  ><div class="doc"
+	  ><p
+	    >An end status describes whether a game is over, and how.
+</p
+	    ></div
+	  ><div class="subs constructors"
+	  ><p class="caption"
+	    >Constructors</p
+	    ><table
+	    ><tr
+	      ><td class="src"
+		><a name="v:Undecided" class="def"
+		  >Undecided</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a name="v:Winner" class="def"
+		  >Winner</a
+		  > <a href="TicTacToe.html#t:PlayerName"
+		  >PlayerName</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ></table
+	    ></div
+	  ><div class="subs instances"
+	  ><p id="control.i:EndStatus" class="caption collapser" onclick="toggleSection('i:EndStatus')"
+	    >Instances</p
+	    ><div id="section.i:EndStatus" class="show"
+	    ><table
+	      ><tr
+		><td class="src"
+		  >Eq <a href="TicTacToe.html#t:EndStatus"
+		    >EndStatus</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td class="src"
+		  >Show <a href="TicTacToe.html#t:EndStatus"
+		    >EndStatus</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		></table
+	      ></div
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><span class="keyword"
+	    >type</span
+	    > <a name="t:PlayerName" class="def"
+	    >PlayerName</a
+	    > = String</p
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><span class="keyword"
+	    >data</span
+	    >  <a name="t:Direction" class="def"
+	    >Direction</a
+	    >  </p
+	  ><div class="doc"
+	  ><p
+	    >A direction is a cardinal or ordinal point.
+</p
+	    ></div
+	  ><div class="subs constructors"
+	  ><p class="caption"
+	    >Constructors</p
+	    ><table
+	    ><tr
+	      ><td class="src"
+		><a name="v:N" class="def"
+		  >N</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a name="v:NE" class="def"
+		  >NE</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a name="v:E" class="def"
+		  >E</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a name="v:SE" class="def"
+		  >SE</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a name="v:S" class="def"
+		  >S</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a name="v:SW" class="def"
+		  >SW</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a name="v:W" class="def"
+		  >W</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a name="v:NW" class="def"
+		  >NW</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ></table
+	    ></div
+	  ><div class="subs instances"
+	  ><p id="control.i:Direction" class="caption collapser" onclick="toggleSection('i:Direction')"
+	    >Instances</p
+	    ><div id="section.i:Direction" class="show"
+	    ><table
+	      ><tr
+		><td class="src"
+		  >Enum <a href="TicTacToe.html#t:Direction"
+		    >Direction</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td class="src"
+		  >Eq <a href="TicTacToe.html#t:Direction"
+		    >Direction</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td class="src"
+		  >Show <a href="TicTacToe.html#t:Direction"
+		    >Direction</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		></table
+	      ></div
+	    ></div
+	  ></div
+	><h1 id="g:1"
+	>Core functions
+</h1
+	><div class="top"
+	><p class="src"
+	  ><a name="v:newGame" class="def"
+	    >newGame</a
+	    > :: <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    ></p
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><a name="v:makePlay" class="def"
+	    >makePlay</a
+	    > :: <a href="TicTacToe.html#t:Mark"
+	    >Mark</a
+	    > -&gt; <a href="TicTacToe.html#t:Point"
+	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    ></p
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><a name="v:ticTacToe" class="def"
+	    >ticTacToe</a
+	    > :: <a href="TicTacToe.html#t:Mark"
+	    >Mark</a
+	    > -&gt; <a href="TicTacToe.html#t:Point"
+	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; Bool</p
+	  ></div
+	><h1 id="g:2"
+	>Supporting functions
+</h1
+	><div class="top"
+	><p class="src"
+	  ><a name="v:threeInARow" class="def"
+	    >threeInARow</a
+	    > :: <a href="TicTacToe.html#t:Mark"
+	    >Mark</a
+	    > -&gt; <a href="TicTacToe.html#t:Point"
+	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Direction"
+	    >Direction</a
+	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; Bool</p
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><a name="v:inBounds" class="def"
+	    >inBounds</a
+	    > :: <a href="TicTacToe.html#t:Point"
+	    >Point</a
+	    > -&gt; Bool</p
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><a name="v:isValidPlay" class="def"
+	    >isValidPlay</a
+	    > :: <a href="TicTacToe.html#t:Point"
+	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; Bool</p
+	  ></div
+	><h1 id="g:3"
+	>Data.Map function aliases
+</h1
+	><div class="top"
+	><p class="src"
+	  ><a name="v:markAt" class="def"
+	    >markAt</a
+	    > :: <a href="TicTacToe.html#t:Point"
+	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; Maybe <a href="TicTacToe.html#t:Mark"
+	    >Mark</a
+	    ></p
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><a name="v:played" class="def"
+	    >played</a
+	    > :: <a href="TicTacToe.html#t:Point"
+	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; Bool</p
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><a name="v:notPlayed" class="def"
+	    >notPlayed</a
+	    > :: <a href="TicTacToe.html#t:Point"
+	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; Bool</p
+	  ></div
+	></div
+      ></div
+    ><div id="footer"
+    ><p
+      >Produced by <a href="http://www.haskell.org/haddock/"
+	>Haddock</a
+	> version 2.10.0</p
+      ></div
+    ></body
+  ></html
+>
