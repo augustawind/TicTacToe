@@ -3,7 +3,6 @@ module Main where
 import Control.Monad (sequence_)
 import Data.Char (isSpace)
 import Data.List (intercalate)
-import qualified Data.Map as Map (member, notMember, lookup)
 import Data.Maybe (fromJust)
 import System.IO (hFlush, stdout)
 import TicTacToe
