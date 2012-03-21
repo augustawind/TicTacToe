@@ -6,12 +6,12 @@ module TicTacToe
 , EndStatus(..)
 -- * Core functions
 , newGame
-, makePlay
+, makeMove
 , ticTacToe
 -- * Supporting functions
 , threeInARow
 , inBounds
-, isValidPlay
+, isValidMove
 -- ** Data.Map aliases
 , markAt
 , occupies
@@ -25,7 +25,7 @@ import Direction
 
 
 -- |A game is a mapping of cells to marks and an end status.
-data Game = Game { getPlays :: (Map Cell Mark)
+data Game = Game { getMoves :: (Map Cell Mark)
                  , getStatus :: EndStatus }
                  deriving (Show)
 
@@ -50,9 +50,9 @@ newGame :: Game
 newGame = Game empty Undecided
 
 
-makePlay :: Mark -> Cell -> Game -> Game
-makePlay mark cell g@(Game plays end) = if inBounds cell
-                                        then Game (insert cell mark plays) end
+makeMove :: Mark -> Cell -> Game -> Game
+makeMove mark cell g@(Game moves end) = if inBounds cell
+                                        then Game (insert cell mark moves) end
                                         else g
 
 
@@ -61,8 +61,8 @@ inBounds (Cell x y) = x >= 0 && x < 3
                     && y >= 0 && y < 3
 
 
-isValidPlay :: Cell -> Game -> Bool
-isValidPlay cell game = inBounds cell && xOccupies cell game
+isValidMove :: Cell -> Game -> Bool
+isValidMove cell game = inBounds cell && xOccupies cell game
 
 
 ticTacToe :: Mark -> Cell -> Game -> Bool
@@ -85,12 +85,12 @@ threeInARow mark (Cell x y) dir game = if all inBounds cells
 
 
 markAt :: Cell -> Game -> Maybe Mark
-markAt cell (Game plays _) = Map.lookup cell plays
+markAt cell (Game moves _) = Map.lookup cell moves
 
 
 occupies :: Cell -> Game -> Bool
-cell `occupies` (Game plays _) = cell `member` plays
+cell `occupies` (Game moves _) = cell `member` moves
 
 
 xOccupies :: Cell -> Game -> Bool
-cell `xOccupies` (Game plays _) = cell `notMember` plays
+cell `xOccupies` (Game moves _) = cell `notMember` moves

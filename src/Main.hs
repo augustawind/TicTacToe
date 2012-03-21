@@ -65,10 +65,10 @@ takeTurn :: Mark -> PlayerName -> Game -> IO Game
 takeTurn mark name game@(Game plays end) = do
     drawGame game
     cell <- promptForMove name
-    if isValidPlay cell game then do
+    if isValidMove cell game then do
         describeMove name cell
 
-        let game'@(Game plays' _) = makePlay mark cell game
+        let game'@(Game plays' _) = makeMove mark cell game
         if ticTacToe mark cell game' then
             return $ Game plays' (Winner mark)
         else
