@@ -77,23 +77,20 @@ ticTacToe mark cell gm = or [threeInARow mark cell dir gm | dir <- [N .. NW]]
 -- |Are there three of a particular mark in a row
 -- from a particular cell and direction in a game?
 threeInARow :: Mark -> Cell -> Direction -> Game -> Bool
-threeInARow mark (Cell x y) dir gm = if all inBounds cells
-                                     then all (== Just mark) marks
-                                     else False
-    where marks  = map (`markAt` gm) cells 
-          cells = let x1 = if centerX then x-dx else x+dx
-                      x2 = if centerX then x+dx else x1+dx
-                      y1 = if centerY then y-dy else y+dy
-                      y2 = if centerY then y+dy else y1+dy
-                      centerX  = x == 1
-                      centerY  = y == 1
-                      (dx, dy) = direction dir
-                  in [Cell x y, Cell x1 y1, Cell x2 y2]
+threeInARow mark (Cell x y) dir gm = length marks == 3
+                                  && all (== Just mark) marks
+    where marks = map (`markAt` gm) cells
+          cells = let xs = if (x == 1) then [x-dx, x, x+dx]
+                                       else [x, x+dx, x+dx+dx]
+                      ys = if (y == 1) then [y-dy, y, y+dy]
+                                       else [y, y+dy, y+dy+dy]
+                      (dx, dy)   = direct dir
+                  in filter inBounds $ zipWith Cell xs ys
 
 
 -- |Lookup a cell in a game, maybe returning a mark at that cell.
 markAt :: Cell -> Game -> Maybe Mark
-markAt cell (Game moves _) = Map.lookup cell moves
+cell `markAt` (Game moves _) = Map.lookup cell moves
 
 
 -- |Is a particular cell in a game occupied?
