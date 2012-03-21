@@ -1,13 +1,28 @@
-module Main where
+-- |A 2-player Tic Tac Toe game.
+module Main 
+( main
+, printInstructions
+, playRound
+, takeTurn
+, drawGame
+, describeMove
+, gameOver
+, promptForName
+, promptForMove
+, showCell
+) where
 
 import Control.Monad (sequence_)
-import Data.Char (isSpace)
+import Data.Char (isSpace, intToDigit)
 import Data.List (intercalate)
 import Data.Maybe (fromJust)
-import System.IO (hFlush, stdout)
+
 import TicTacToe
+import Util
 
 
+-- |Print a title, ask for the players' names, print some instructions
+-- and start the game.
 main :: IO ()
 main = do
     putStrLn "<< TIC TAC TOE >>"
@@ -18,11 +33,6 @@ main = do
     printInstructions
     lineBreak
     playRound nameX nameO newGame
-
-
--- |Print a newline.
-lineBreak :: IO ()
-lineBreak = putChar '\n'
 
 
 -- |Print the game instructions.
@@ -39,74 +49,74 @@ type PlayerName = String
 -- |Execute a round of the game.
 playRound :: PlayerName -> PlayerName -> Game -> IO ()
 playRound nameX nameO game = do
-    g'@(Game _ statusX) <- takeTurn MarkX nameX game
+    game'@(Game _ statusX) <- takeTurn MarkX nameX game
     case statusX of
-        Winner MarkX -> gameOver nameX nameO g'
+        Winner MarkX -> gameOver nameX nameO game'
         Undecided    -> do
-            g''@(Game _ statusO) <- takeTurn MarkO nameO g'
+
+            game''@(Game _ statusO) <- takeTurn MarkO nameO game'
             case statusO of
-                Winner MarkO -> gameOver nameO nameX g''
-                Undecided    -> playRound nameX nameO g''
+                Winner MarkO -> gameOver nameO nameX game''
+                Undecided    -> playRound nameX nameO game''
 
 
--- |Prompt a player for a move, and update a game accordingly.
+-- |Prompt X or O for a move, returning an updated game.
 takeTurn :: Mark -> PlayerName -> Game -> IO Game
-takeTurn mark name g@(Game plays end) = do
-    drawGame g
-    point <- promptForPlay name
-    if isValidPlay point g then do
-        describePlay name point
-        let g'@(Game plays' _) = makePlay mark point g
-        if ticTacToe mark point g' then
+takeTurn mark name game@(Game plays end) = do
+    drawGame game
+    cell <- promptForMove name
+    if isValidPlay cell game then do
+        describeMove name cell
+
+        let game'@(Game plays' _) = makePlay mark cell game
+        if ticTacToe mark cell game' then
             return $ Game plays' (Winner mark)
         else
-            return g'
+            return game'
+
     else do
         putStrLn $ "Invalid move. Try again." 
-        takeTurn mark name g
+        takeTurn mark name game
+
+
+drawGame :: Game -> IO ()
+drawGame game = do lineBreak
+                   sequence_ . intercalate [lineBreak] . reverse $ actions
+                   lineBreak
+    where actions = map (map putChar) chars
+          chars   = map (map (`showCell` game)) pts
+          pts     = [[Cell x y | x <- [0..2]] | y <- [0..2]]
+
+
+describeMove :: PlayerName -> Cell -> IO ()
+describeMove name (Cell x y) =
+    putStrLn $ name ++ " moves at (" ++ show x ++ ", " ++ show y ++ ")."
 
 
 gameOver :: PlayerName -> PlayerName -> Game -> IO ()
 gameOver winner loser game = do
     drawGame game
+    lineBreak
     putStrLn $ winner ++ " wins! Better luck next time, " ++ loser ++ "."
-        
-
--- |Print a string and then get some input.
-prompt :: String -> IO String
-prompt st = putStr st >> hFlush stdout >> getLine
 
 
 -- |Prompt for a player's name.
 promptForName :: String -> IO String
-promptForName playerSt = prompt $ playerSt ++ ", what is your name? "
+promptForName = prompt . (++ ", what is your name? ")
 
 
 -- |Prompt for move coordinates until valid input is given.
-promptForPlay :: PlayerName -> IO Point
-promptForPlay playerName = do
-    input <- prompt ('\n':playerName ++ "'s move: ")
+promptForMove :: PlayerName -> IO Cell
+promptForMove name = do
+    input <- prompt ('\n':name ++ "'s move: ")
     case input of
-        (x:' ':y:[]) -> return $ Point (read [x]) (read [y])
+        (x:' ':y:[]) -> return $ Cell (read [x]) (read [y])
         otherwise    -> do
             putStrLn "Invalid input. Try again."
-            promptForPlay playerName
+            promptForMove name
 
 
-describePlay :: PlayerName -> Point -> IO ()
-describePlay name (Point x y) =
-    putStrLn $ name ++ " plays at (" ++ show x ++ ", " ++ show y ++ ").\n"
-
-
-drawGame :: Game -> IO ()
-drawGame game = do
-        sequence_ . intercalate [lineBreak] . reverse $ actions
-        putStrLn ""
-    where actions        = [[drawCell x y | x <- [0..2]] | y <- [0..2]]
-          drawCell x' y' = putStr (getCellStr (Point x' y') game)
-
-
-getCellStr :: Point -> Game -> String
-getCellStr point game = if point `played` game
-                        then show . fromJust . markAt point $ game 
-                        else "."
+showCell :: Cell -> Game -> Char
+showCell cell game = if cell `occupies` game
+                     then head . show . fromJust . markAt cell $ game
+                     else '.'

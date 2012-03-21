@@ -1,10 +1,9 @@
 -- |Game logic for a Tic Tac Toe game.
 module TicTacToe
 ( Game(..)
-, Point(..)
+, Cell(..)
 , Mark(..)
 , EndStatus(..)
-, Direction(..)
 -- * Core functions
 , newGame
 , makePlay
@@ -13,24 +12,26 @@ module TicTacToe
 , threeInARow
 , inBounds
 , isValidPlay
--- * Data.Map function aliases
+-- ** Data.Map aliases
 , markAt
-, played
-, notPlayed
+, occupies
+, xOccupies
 ) where
 
 import Data.Map (Map, empty, member, notMember, insert, fromList, size)
 import qualified Data.Map as Map (lookup)
 
+import Util (Direction(..), direction)
 
--- |A game is a mapping of points to marks and an end status.
-data Game = Game { getPlays :: (Map Point Mark)
+
+-- |A game is a mapping of cells to marks and an end status.
+data Game = Game { getPlays :: (Map Cell Mark)
                  , getStatus :: EndStatus }
                  deriving (Show)
 
--- |A point is two coordinates.
-data Point = Point Int Int
-             deriving (Show, Eq, Ord)
+-- |A cell is represented by two coordinates.
+data Cell = Cell Int Int
+            deriving (Show, Eq, Ord)
 
 -- |A mark is either an X or O.
 data Mark = MarkX | MarkO
@@ -44,67 +45,52 @@ instance Show Mark where
 data EndStatus = Undecided | Winner Mark
                   deriving (Show, Eq) 
 
--- |A direction is a cardinal or ordinal point.
-data Direction = N | NE | E | SE | S | SW | W | NW
-                 deriving (Show, Eq, Enum)
-
 
 newGame :: Game
 newGame = Game empty Undecided
 
 
-makePlay :: Mark -> Point -> Game -> Game
-makePlay mark point g@(Game plays end) = if inBounds point
-                                         then Game (insert point mark plays) end
-                                         else g
+makePlay :: Mark -> Cell -> Game -> Game
+makePlay mark cell g@(Game plays end) = if inBounds cell
+                                        then Game (insert cell mark plays) end
+                                        else g
 
 
-inBounds :: Point -> Bool
-inBounds (Point x y) = x >= 0 && x < 3
+inBounds :: Cell -> Bool
+inBounds (Cell x y) = x >= 0 && x < 3
                     && y >= 0 && y < 3
 
 
-isValidPlay :: Point -> Game -> Bool
-isValidPlay point game = inBounds point && notPlayed point game
+isValidPlay :: Cell -> Game -> Bool
+isValidPlay cell game = inBounds cell && xOccupies cell game
 
 
-ticTacToe :: Mark -> Point -> Game -> Bool
+ticTacToe :: Mark -> Cell -> Game -> Bool
 ticTacToe mark p game = or [threeInARow mark p dir game | dir <- [N .. NW]]
 
 
-threeInARow :: Mark -> Point -> Direction -> Game -> Bool
-threeInARow mark (Point x y) dir game = if all inBounds points
+threeInARow :: Mark -> Cell -> Direction -> Game -> Bool
+threeInARow mark (Cell x y) dir game = if all inBounds cells
                                         then all (== Just mark) marks
                                         else False
-    where marks  = map (`markAt` game) points 
-          points = let x1 = if centerX then x-dx else x+dx
-                       x2 = if centerX then x+dx else x1+dx
-                       y1 = if centerY then y-dy else y+dy
-                       y2 = if centerY then y+dy else y1+dy
-                       centerX  = x == 1
-                       centerY  = y == 1
-                       (dx, dy) = dirToXY dir
-                   in [Point x y, Point x1 y1, Point x2 y2]
+    where marks  = map (`markAt` game) cells 
+          cells = let x1 = if centerX then x-dx else x+dx
+                      x2 = if centerX then x+dx else x1+dx
+                      y1 = if centerY then y-dy else y+dy
+                      y2 = if centerY then y+dy else y1+dy
+                      centerX  = x == 1
+                      centerY  = y == 1
+                      (dx, dy) = direction dir
+                  in [Cell x y, Cell x1 y1, Cell x2 y2]
 
 
-dirToXY :: Direction -> (Int, Int)
-dirToXY N  = (0, 1)
-dirToXY NE = (1, 1)
-dirToXY E  = (1, 0)
-dirToXY SE = (1, -1)
-dirToXY S  = (0, -1)
-dirToXY SW = (-1, -1)
-dirToXY W  = (-1, 0)
-dirToXY NW = (-1, 1)
+markAt :: Cell -> Game -> Maybe Mark
+markAt cell (Game plays _) = Map.lookup cell plays
 
 
-markAt :: Point -> Game -> Maybe Mark
-markAt point (Game plays _) = Map.lookup point plays
+occupies :: Cell -> Game -> Bool
+cell `occupies` (Game plays _) = cell `member` plays
 
 
-played :: Point -> Game -> Bool
-point `played` (Game plays _) = point `member` plays
-
-
-notPlayed :: Point -> Game -> Bool
-point `notPlayed` (Game plays _) = point `notMember` plays
+xOccupies :: Cell -> Game -> Bool
+cell `xOccupies` (Game plays _) = cell `notMember` plays
