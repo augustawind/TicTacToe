@@ -1,5 +1,4 @@
 module TicTacToe
--- * Data types
 ( Game(..)
 , Point(..)
 , Mark(..)
@@ -15,9 +14,9 @@ module TicTacToe
 , inBounds
 , isValidPlay
 -- * Data.Map function aliases
-, markAt        -- ^ lookup
-, played        -- ^ member 
-, notPlayed     -- ^ notMember
+, markAt
+, played
+, notPlayed
 ) where
 
 import Data.Map (Map, empty, member, notMember, insert, fromList, size)
@@ -33,12 +32,12 @@ data Game = Game { getPlays :: (Map Point Mark)
 data Point = Point Int Int
              deriving (Show, Eq, Ord)
 
--- |A mark is either X or O.
-data Mark = X | O
+-- |A mark is either an X or O.
+data Mark = MarkX | MarkO
             deriving (Show, Eq, Ord)
 
 -- |An end status describes whether a game is over, and how.
-data EndStatus = Undecided | Winner PlayerName
+data EndStatus = Undecided | Winner Mark
                   deriving (Show, Eq) 
 
 type PlayerName = String
@@ -84,6 +83,7 @@ threeInARow mark (Point x y) dir game = if all inBounds points
                        centerY  = y == 1
                        (dx, dy) = dirToXY dir
                    in [Point x y, Point x1 y1, Point x2 y2]
+
 
 dirToXY :: Direction -> (Int, Int)
 dirToXY N  = (0, 1)

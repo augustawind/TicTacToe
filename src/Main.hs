@@ -28,14 +28,14 @@ presentInstructions = do
 mainLoop :: PlayerName -> PlayerName -> Game -> IO ()
 mainLoop nameX nameO game = do
     drawGame game
-    g'@(Game _ statusX) <- takePlayerTurn X nameX game
+    g'@(Game _ statusX) <- takePlayerTurn MarkX nameX game
     case statusX of
-        Winner nameX -> gameOver nameX nameO g'
+        Winner MarkX -> gameOver nameX nameO g'
         Undecided    -> do
             drawGame g'
-            g''@(Game _ statusO) <- takePlayerTurn O nameO g'
+            g''@(Game _ statusO) <- takePlayerTurn MarkO nameO g'
             case statusO of
-                Winner nameO -> gameOver nameO nameX g''
+                Winner MarkO -> gameOver nameO nameX g''
                 Undecided    -> mainLoop nameX nameO g''
 
 
@@ -46,7 +46,7 @@ takePlayerTurn mark name g@(Game plays end) = do
         describePlay name point
         let g'@(Game plays' _) = makePlay mark point g
         if ticTacToe mark point g' then
-            return $ Game plays' (Winner name)
+            return $ Game plays' (Winner mark)
         else
             return g'
     else do
