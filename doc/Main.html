@@ -41,6 +41,81 @@ window.onload = function () {pageLoad();setSynopsis("mini_Main.html");};
 	><p class="caption"
 	>Main</p
 	></div
+      ><div id="description"
+      ><p class="caption"
+	>Description</p
+	><div class="doc"
+	><p
+	  >A 2-player Tic Tac Toe game.
+</p
+	  ></div
+	></div
+      ><div id="synopsis"
+      ><p id="control.syn" class="caption expander" onclick="toggleSection('syn')"
+	>Synopsis</p
+	><ul id="section.syn" class="hide" onclick="toggleSection('syn')"
+	><li class="src short"
+	  ><a href="#v:main"
+	    >main</a
+	    > :: IO ()</li
+	  ><li class="src short"
+	  ><a href="#v:printInstructions"
+	    >printInstructions</a
+	    > :: IO ()</li
+	  ><li class="src short"
+	  ><a href="#v:playRound"
+	    >playRound</a
+	    > :: PlayerName -&gt; PlayerName -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; IO ()</li
+	  ><li class="src short"
+	  ><a href="#v:takeTurn"
+	    >takeTurn</a
+	    > :: <a href="TicTacToe.html#t:Mark"
+	    >Mark</a
+	    > -&gt; PlayerName -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; IO <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    ></li
+	  ><li class="src short"
+	  ><a href="#v:drawGame"
+	    >drawGame</a
+	    > :: <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; IO ()</li
+	  ><li class="src short"
+	  ><a href="#v:describeMove"
+	    >describeMove</a
+	    > :: PlayerName -&gt; <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
+	    > -&gt; IO ()</li
+	  ><li class="src short"
+	  ><a href="#v:gameOver"
+	    >gameOver</a
+	    > :: PlayerName -&gt; PlayerName -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; IO ()</li
+	  ><li class="src short"
+	  ><a href="#v:promptForName"
+	    >promptForName</a
+	    > :: String -&gt; IO String</li
+	  ><li class="src short"
+	  ><a href="#v:promptForMove"
+	    >promptForMove</a
+	    > :: PlayerName -&gt; IO <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
+	    ></li
+	  ><li class="src short"
+	  ><a href="#v:showCell"
+	    >showCell</a
+	    > :: <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
+	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; Char</li
+	  ></ul
+	></div
       ><div id="interface"
       ><h1
 	>Documentation</h1
@@ -49,82 +124,53 @@ window.onload = function () {pageLoad();setSynopsis("mini_Main.html");};
 	  ><a name="v:main" class="def"
 	    >main</a
 	    > :: IO ()</p
+	  ><div class="doc"
+	  ><p
+	    >Print a title, ask for the players' names, print some instructions
+ and start the game.
+</p
+	    ></div
 	  ></div
 	><div class="top"
 	><p class="src"
-	  ><a name="v:presentInstructions" class="def"
-	    >presentInstructions</a
+	  ><a name="v:printInstructions" class="def"
+	    >printInstructions</a
 	    > :: IO ()</p
+	  ><div class="doc"
+	  ><p
+	    >Print the game instructions.
+</p
+	    ></div
 	  ></div
 	><div class="top"
 	><p class="src"
-	  ><a name="v:mainLoop" class="def"
-	    >mainLoop</a
-	    > :: <a href="TicTacToe.html#t:PlayerName"
-	    >PlayerName</a
-	    > -&gt; <a href="TicTacToe.html#t:PlayerName"
-	    >PlayerName</a
-	    > -&gt; <a href="TicTacToe.html#t:Game"
+	  ><a name="v:playRound" class="def"
+	    >playRound</a
+	    > :: PlayerName -&gt; PlayerName -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    > -&gt; IO ()</p
+	  ><div class="doc"
+	  ><p
+	    >Execute a round of the game.
+</p
+	    ></div
 	  ></div
 	><div class="top"
 	><p class="src"
-	  ><a name="v:takePlayerTurn" class="def"
-	    >takePlayerTurn</a
+	  ><a name="v:takeTurn" class="def"
+	    >takeTurn</a
 	    > :: <a href="TicTacToe.html#t:Mark"
 	    >Mark</a
-	    > -&gt; <a href="TicTacToe.html#t:PlayerName"
-	    >PlayerName</a
-	    > -&gt; <a href="TicTacToe.html#t:Game"
+	    > -&gt; PlayerName -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    > -&gt; IO <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    ></p
-	  ></div
-	><div class="top"
-	><p class="src"
-	  ><a name="v:gameOver" class="def"
-	    >gameOver</a
-	    > :: <a href="TicTacToe.html#t:PlayerName"
-	    >PlayerName</a
-	    > -&gt; <a href="TicTacToe.html#t:PlayerName"
-	    >PlayerName</a
-	    > -&gt; <a href="TicTacToe.html#t:Game"
-	    >Game</a
-	    > -&gt; IO ()</p
-	  ></div
-	><div class="top"
-	><p class="src"
-	  ><a name="v:prompt" class="def"
-	    >prompt</a
-	    > :: String -&gt; IO String</p
-	  ></div
-	><div class="top"
-	><p class="src"
-	  ><a name="v:promptForName" class="def"
-	    >promptForName</a
-	    > :: String -&gt; IO String</p
-	  ></div
-	><div class="top"
-	><p class="src"
-	  ><a name="v:promptForPlay" class="def"
-	    >promptForPlay</a
-	    > :: <a href="TicTacToe.html#t:PlayerName"
-	    >PlayerName</a
-	    > -&gt; IO <a href="TicTacToe.html#t:Point"
-	    >Point</a
-	    ></p
-	  ></div
-	><div class="top"
-	><p class="src"
-	  ><a name="v:describePlay" class="def"
-	    >describePlay</a
-	    > :: <a href="TicTacToe.html#t:PlayerName"
-	    >PlayerName</a
-	    > -&gt; <a href="TicTacToe.html#t:Point"
-	    >Point</a
-	    > -&gt; IO ()</p
+	  ><div class="doc"
+	  ><p
+	    >Prompt X or O for a move, returning an updated game.
+</p
+	    ></div
 	  ></div
 	><div class="top"
 	><p class="src"
@@ -133,16 +179,76 @@ window.onload = function () {pageLoad();setSynopsis("mini_Main.html");};
 	    > :: <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    > -&gt; IO ()</p
+	  ><div class="doc"
+	  ><p
+	    >Draw a game on the screen.
+</p
+	    ></div
 	  ></div
 	><div class="top"
 	><p class="src"
-	  ><a name="v:getCellStr" class="def"
-	    >getCellStr</a
-	    > :: <a href="TicTacToe.html#t:Point"
-	    >Point</a
+	  ><a name="v:describeMove" class="def"
+	    >describeMove</a
+	    > :: PlayerName -&gt; <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
+	    > -&gt; IO ()</p
+	  ><div class="doc"
+	  ><p
+	    >Print some information about a player's move at a cell.
+</p
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><a name="v:gameOver" class="def"
+	    >gameOver</a
+	    > :: PlayerName -&gt; PlayerName -&gt; <a href="TicTacToe.html#t:Game"
+	    >Game</a
+	    > -&gt; IO ()</p
+	  ><div class="doc"
+	  ><p
+	    >Draw the final game and congratulate the winner.
+</p
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><a name="v:promptForName" class="def"
+	    >promptForName</a
+	    > :: String -&gt; IO String</p
+	  ><div class="doc"
+	  ><p
+	    >Prompt for a player's name.
+</p
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><a name="v:promptForMove" class="def"
+	    >promptForMove</a
+	    > :: PlayerName -&gt; IO <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
+	    ></p
+	  ><div class="doc"
+	  ><p
+	    >Prompt for move coordinates until valid input is given.
+</p
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><a name="v:showCell" class="def"
+	    >showCell</a
+	    > :: <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
 	    > -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
-	    > -&gt; String</p
+	    > -&gt; Char</p
+	  ><div class="doc"
+	  ><p
+	    >Return a suitable display char for a given cell in a game.
+</p
+	    ></div
 	  ></div
 	></div
       ></div

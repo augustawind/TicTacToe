@@ -35,18 +35,48 @@ window.onload = function () {pageLoad();};
 	><table
 	><tr
 	  ><td class="src"
-	    >describePlay</td
+	    >Cell</td
+	    ><td
+	    >&nbsp;</td
+	    ></tr
+	  ><tr
+	  ><td class="alt"
+	    >1 (Type/Class)</td
 	    ><td class="module"
-	    ><a href="Main.html#v:describePlay"
+	    ><a href="TicTacToe.html#t:Cell"
+	      >TicTacToe</a
+	      ></td
+	    ></tr
+	  ><tr
+	  ><td class="alt"
+	    >2 (Data Constructor)</td
+	    ><td class="module"
+	    ><a href="TicTacToe.html#v:Cell"
+	      >TicTacToe</a
+	      ></td
+	    ></tr
+	  ><tr
+	  ><td class="src"
+	    >describeMove</td
+	    ><td class="module"
+	    ><a href="Main.html#v:describeMove"
 	      >Main</a
+	      ></td
+	    ></tr
+	  ><tr
+	  ><td class="src"
+	    >direct</td
+	    ><td class="module"
+	    ><a href="Direction.html#v:direct"
+	      >Direction</a
 	      ></td
 	    ></tr
 	  ><tr
 	  ><td class="src"
 	    >Direction</td
 	    ><td class="module"
-	    ><a href="TicTacToe.html#t:Direction"
-	      >TicTacToe</a
+	    ><a href="Direction.html#t:Direction"
+	      >Direction</a
 	      ></td
 	    ></tr
 	  ><tr
@@ -61,8 +91,8 @@ window.onload = function () {pageLoad();};
 	  ><td class="src"
 	    >E</td
 	    ><td class="module"
-	    ><a href="TicTacToe.html#v:E"
-	      >TicTacToe</a
+	    ><a href="Direction.html#v:E"
+	      >Direction</a
 	      ></td
 	    ></tr
 	  ><tr
@@ -105,17 +135,9 @@ window.onload = function () {pageLoad();};
 	    ></tr
 	  ><tr
 	  ><td class="src"
-	    >getCellStr</td
+	    >getMoves</td
 	    ><td class="module"
-	    ><a href="Main.html#v:getCellStr"
-	      >Main</a
-	      ></td
-	    ></tr
-	  ><tr
-	  ><td class="src"
-	    >getPlays</td
-	    ><td class="module"
-	    ><a href="TicTacToe.html#v:getPlays"
+	    ><a href="TicTacToe.html#v:getMoves"
 	      >TicTacToe</a
 	      ></td
 	    ></tr
@@ -137,10 +159,18 @@ window.onload = function () {pageLoad();};
 	    ></tr
 	  ><tr
 	  ><td class="src"
-	    >isValidPlay</td
+	    >isValidMove</td
 	    ><td class="module"
-	    ><a href="TicTacToe.html#v:isValidPlay"
+	    ><a href="TicTacToe.html#v:isValidMove"
 	      >TicTacToe</a
+	      ></td
+	    ></tr
+	  ><tr
+	  ><td class="src"
+	    >lineBreak</td
+	    ><td class="module"
+	    ><a href="Util.html#v:lineBreak"
+	      >Util</a
 	      ></td
 	    ></tr
 	  ><tr
@@ -153,17 +183,9 @@ window.onload = function () {pageLoad();};
 	    ></tr
 	  ><tr
 	  ><td class="src"
-	    >mainLoop</td
+	    >makeMove</td
 	    ><td class="module"
-	    ><a href="Main.html#v:mainLoop"
-	      >Main</a
-	      ></td
-	    ></tr
-	  ><tr
-	  ><td class="src"
-	    >makePlay</td
-	    ><td class="module"
-	    ><a href="TicTacToe.html#v:makePlay"
+	    ><a href="TicTacToe.html#v:makeMove"
 	      >TicTacToe</a
 	      ></td
 	    ></tr
@@ -185,18 +207,34 @@ window.onload = function () {pageLoad();};
 	    ></tr
 	  ><tr
 	  ><td class="src"
+	    >MarkO</td
+	    ><td class="module"
+	    ><a href="TicTacToe.html#v:MarkO"
+	      >TicTacToe</a
+	      ></td
+	    ></tr
+	  ><tr
+	  ><td class="src"
+	    >MarkX</td
+	    ><td class="module"
+	    ><a href="TicTacToe.html#v:MarkX"
+	      >TicTacToe</a
+	      ></td
+	    ></tr
+	  ><tr
+	  ><td class="src"
 	    >N</td
 	    ><td class="module"
-	    ><a href="TicTacToe.html#v:N"
-	      >TicTacToe</a
+	    ><a href="Direction.html#v:N"
+	      >Direction</a
 	      ></td
 	    ></tr
 	  ><tr
 	  ><td class="src"
 	    >NE</td
 	    ><td class="module"
-	    ><a href="TicTacToe.html#v:NE"
-	      >TicTacToe</a
+	    ><a href="Direction.html#v:NE"
+	      >Direction</a
 	      ></td
 	    ></tr
 	  ><tr
@@ -209,71 +247,33 @@ window.onload = function () {pageLoad();};
 	    ></tr
 	  ><tr
 	  ><td class="src"
-	    >notPlayed</td
-	    ><td class="module"
-	    ><a href="TicTacToe.html#v:notPlayed"
-	      >TicTacToe</a
-	      ></td
-	    ></tr
-	  ><tr
-	  ><td class="src"
 	    >NW</td
 	    ><td class="module"
-	    ><a href="TicTacToe.html#v:NW"
+	    ><a href="Direction.html#v:NW"
+	      >Direction</a
+	      ></td
+	    ></tr
+	  ><tr
+	  ><td class="src"
+	    >occupied</td
+	    ><td class="module"
+	    ><a href="TicTacToe.html#v:occupied"
 	      >TicTacToe</a
 	      ></td
 	    ></tr
 	  ><tr
 	  ><td class="src"
-	    >O</td
+	    >playRound</td
 	    ><td class="module"
-	    ><a href="TicTacToe.html#v:O"
-	      >TicTacToe</a
+	    ><a href="Main.html#v:playRound"
+	      >Main</a
 	      ></td
 	    ></tr
 	  ><tr
 	  ><td class="src"
-	    >played</td
+	    >printInstructions</td
 	    ><td class="module"
-	    ><a href="TicTacToe.html#v:played"
-	      >TicTacToe</a
-	      ></td
-	    ></tr
-	  ><tr
-	  ><td class="src"
-	    >PlayerName</td
-	    ><td class="module"
-	    ><a href="TicTacToe.html#t:PlayerName"
-	      >TicTacToe</a
-	      ></td
-	    ></tr
-	  ><tr
-	  ><td class="src"
-	    >Point</td
-	    ><td
-	    >&nbsp;</td
-	    ></tr
-	  ><tr
-	  ><td class="alt"
-	    >1 (Type/Class)</td
-	    ><td class="module"
-	    ><a href="TicTacToe.html#t:Point"
-	      >TicTacToe</a
-	      ></td
-	    ></tr
-	  ><tr
-	  ><td class="alt"
-	    >2 (Data Constructor)</td
-	    ><td class="module"
-	    ><a href="TicTacToe.html#v:Point"
-	      >TicTacToe</a
-	      ></td
-	    ></tr
-	  ><tr
-	  ><td class="src"
-	    >presentInstructions</td
-	    ><td class="module"
-	    ><a href="Main.html#v:presentInstructions"
+	    ><a href="Main.html#v:printInstructions"
 	      >Main</a
 	      ></td
 	    ></tr
@@ -281,7 +281,15 @@ window.onload = function () {pageLoad();};
 	  ><td class="src"
 	    >prompt</td
 	    ><td class="module"
-	    ><a href="Main.html#v:prompt"
+	    ><a href="Util.html#v:prompt"
+	      >Util</a
+	      ></td
+	    ></tr
+	  ><tr
+	  ><td class="src"
+	    >promptForMove</td
+	    ><td class="module"
+	    ><a href="Main.html#v:promptForMove"
 	      >Main</a
 	      ></td
 	    ></tr
@@ -295,41 +303,41 @@ window.onload = function () {pageLoad();};
 	    ></tr
 	  ><tr
 	  ><td class="src"
-	    >promptForPlay</td
-	    ><td class="module"
-	    ><a href="Main.html#v:promptForPlay"
-	      >Main</a
-	      ></td
-	    ></tr
-	  ><tr
-	  ><td class="src"
 	    >S</td
 	    ><td class="module"
-	    ><a href="TicTacToe.html#v:S"
-	      >TicTacToe</a
+	    ><a href="Direction.html#v:S"
+	      >Direction</a
 	      ></td
 	    ></tr
 	  ><tr
 	  ><td class="src"
 	    >SE</td
 	    ><td class="module"
-	    ><a href="TicTacToe.html#v:SE"
-	      >TicTacToe</a
+	    ><a href="Direction.html#v:SE"
+	      >Direction</a
+	      ></td
+	    ></tr
+	  ><tr
+	  ><td class="src"
+	    >showCell</td
+	    ><td class="module"
+	    ><a href="Main.html#v:showCell"
+	      >Main</a
 	      ></td
 	    ></tr
 	  ><tr
 	  ><td class="src"
 	    >SW</td
 	    ><td class="module"
-	    ><a href="TicTacToe.html#v:SW"
-	      >TicTacToe</a
+	    ><a href="Direction.html#v:SW"
+	      >Direction</a
 	      ></td
 	    ></tr
 	  ><tr
 	  ><td class="src"
-	    >takePlayerTurn</td
+	    >takeTurn</td
 	    ><td class="module"
-	    ><a href="Main.html#v:takePlayerTurn"
+	    ><a href="Main.html#v:takeTurn"
 	      >Main</a
 	      ></td
 	    ></tr
@@ -359,10 +367,18 @@ window.onload = function () {pageLoad();};
 	    ></tr
 	  ><tr
 	  ><td class="src"
+	    >unoccupied</td
+	    ><td class="module"
+	    ><a href="TicTacToe.html#v:unoccupied"
+	      >TicTacToe</a
+	      ></td
+	    ></tr
+	  ><tr
+	  ><td class="src"
 	    >W</td
 	    ><td class="module"
-	    ><a href="TicTacToe.html#v:W"
-	      >TicTacToe</a
+	    ><a href="Direction.html#v:W"
+	      >Direction</a
 	      ></td
 	    ></tr
 	  ><tr
@@ -370,14 +386,6 @@ window.onload = function () {pageLoad();};
 	    >Winner</td
 	    ><td class="module"
 	    ><a href="TicTacToe.html#v:Winner"
-	      >TicTacToe</a
-	      ></td
-	    ></tr
-	  ><tr
-	  ><td class="src"
-	    >X</td
-	    ><td class="module"
-	    ><a href="TicTacToe.html#v:X"
 	      >TicTacToe</a
 	      ></td
 	    ></tr

@@ -54,13 +54,24 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	  ><a href="#g:2"
 	    >Supporting functions
 </a
-	    ></li
-	  ><li
-	  ><a href="#g:3"
-	    >Data.Map function aliases
+	    ><ul
+	    ><li
+	      ><a href="#g:3"
+		>Data.Map aliases
 </a
+		></li
+	      ></ul
 	    ></li
 	  ></ul
+	></div
+      ><div id="description"
+      ><p class="caption"
+	>Description</p
+	><div class="doc"
+	><p
+	  >Game logic for a Tic Tac Toe game.
+</p
+	  ></div
 	></div
       ><div id="synopsis"
       ><p id="control.syn" class="caption expander" onclick="toggleSection('syn')"
@@ -75,10 +86,10 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	    >Game</a
 	    > {<ul class="subs"
 	    ><li
-	      ><a href="#v:getPlays"
-		>getPlays</a
-		> :: Map <a href="TicTacToe.html#t:Point"
-		>Point</a
+	      ><a href="#v:getMoves"
+		>getMoves</a
+		> :: Map <a href="TicTacToe.html#t:Cell"
+		>Cell</a
 		> <a href="TicTacToe.html#t:Mark"
 		>Mark</a
 		></li
@@ -93,10 +104,10 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	  ><li class="src short"
 	  ><span class="keyword"
 	    >data</span
-	    >  <a href="#t:Point"
-	    >Point</a
-	    >  = <a href="#v:Point"
-	    >Point</a
+	    >  <a href="#t:Cell"
+	    >Cell</a
+	    >  = <a href="#v:Cell"
+	    >Cell</a
 	    > Int Int</li
 	  ><li class="src short"
 	  ><span class="keyword"
@@ -105,12 +116,12 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	    >Mark</a
 	    > <ul class="subs"
 	    ><li
-	      >= <a href="#v:X"
-		>X</a
+	      >= <a href="#v:MarkX"
+		>MarkX</a
 		>  </li
 	      ><li
-	      >| <a href="#v:O"
-		>O</a
+	      >| <a href="#v:MarkO"
+		>MarkO</a
 		>  </li
 	      ></ul
 	    ></li
@@ -127,54 +138,8 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	      ><li
 	      >| <a href="#v:Winner"
 		>Winner</a
-		> <a href="TicTacToe.html#t:PlayerName"
-		>PlayerName</a
-		>  </li
-	      ></ul
-	    ></li
-	  ><li class="src short"
-	  ><span class="keyword"
-	    >type</span
-	    > <a href="#t:PlayerName"
-	    >PlayerName</a
-	    > = String</li
-	  ><li class="src short"
-	  ><span class="keyword"
-	    >data</span
-	    >  <a href="#t:Direction"
-	    >Direction</a
-	    > <ul class="subs"
-	    ><li
-	      >= <a href="#v:N"
-		>N</a
-		>  </li
-	      ><li
-	      >| <a href="#v:NE"
-		>NE</a
-		>  </li
-	      ><li
-	      >| <a href="#v:E"
-		>E</a
-		>  </li
-	      ><li
-	      >| <a href="#v:SE"
-		>SE</a
-		>  </li
-	      ><li
-	      >| <a href="#v:S"
-		>S</a
-		>  </li
-	      ><li
-	      >| <a href="#v:SW"
-		>SW</a
-		>  </li
-	      ><li
-	      >| <a href="#v:W"
-		>W</a
-		>  </li
-	      ><li
-	      >| <a href="#v:NW"
-		>NW</a
+		> <a href="TicTacToe.html#t:Mark"
+		>Mark</a
 		>  </li
 	      ></ul
 	    ></li
@@ -185,12 +150,12 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	    >Game</a
 	    ></li
 	  ><li class="src short"
-	  ><a href="#v:makePlay"
-	    >makePlay</a
+	  ><a href="#v:makeMove"
+	    >makeMove</a
 	    > :: <a href="TicTacToe.html#t:Mark"
 	    >Mark</a
-	    > -&gt; <a href="TicTacToe.html#t:Point"
-	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
 	    > -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    > -&gt; <a href="TicTacToe.html#t:Game"
@@ -201,8 +166,8 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	    >ticTacToe</a
 	    > :: <a href="TicTacToe.html#t:Mark"
 	    >Mark</a
-	    > -&gt; <a href="TicTacToe.html#t:Point"
-	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
 	    > -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    > -&gt; Bool</li
@@ -211,9 +176,9 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	    >threeInARow</a
 	    > :: <a href="TicTacToe.html#t:Mark"
 	    >Mark</a
-	    > -&gt; <a href="TicTacToe.html#t:Point"
-	    >Point</a
-	    > -&gt; <a href="TicTacToe.html#t:Direction"
+	    > -&gt; <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
+	    > -&gt; <a href="Direction.html#t:Direction"
 	    >Direction</a
 	    > -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
@@ -221,40 +186,40 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	  ><li class="src short"
 	  ><a href="#v:inBounds"
 	    >inBounds</a
-	    > :: <a href="TicTacToe.html#t:Point"
-	    >Point</a
+	    > :: <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
 	    > -&gt; Bool</li
 	  ><li class="src short"
-	  ><a href="#v:isValidPlay"
-	    >isValidPlay</a
-	    > :: <a href="TicTacToe.html#t:Point"
-	    >Point</a
+	  ><a href="#v:isValidMove"
+	    >isValidMove</a
+	    > :: <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
 	    > -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    > -&gt; Bool</li
 	  ><li class="src short"
 	  ><a href="#v:markAt"
 	    >markAt</a
-	    > :: <a href="TicTacToe.html#t:Point"
-	    >Point</a
+	    > :: <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
 	    > -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    > -&gt; Maybe <a href="TicTacToe.html#t:Mark"
 	    >Mark</a
 	    ></li
 	  ><li class="src short"
-	  ><a href="#v:played"
-	    >played</a
-	    > :: <a href="TicTacToe.html#t:Point"
-	    >Point</a
+	  ><a href="#v:occupied"
+	    >occupied</a
+	    > :: <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
 	    > -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    > -&gt; Bool</li
 	  ><li class="src short"
-	  ><a href="#v:notPlayed"
-	    >notPlayed</a
-	    > :: <a href="TicTacToe.html#t:Point"
-	    >Point</a
+	  ><a href="#v:unoccupied"
+	    >unoccupied</a
+	    > :: <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
 	    > -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    > -&gt; Bool</li
@@ -272,7 +237,7 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	    >  </p
 	  ><div class="doc"
 	  ><p
-	    >A game is a mapping of points to marks and an end status.
+	    >A game is a mapping of cells to marks and an end status.
 </p
 	    ></div
 	  ><div class="subs constructors"
@@ -294,10 +259,10 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 		    >Fields</p
 		    ><dl
 		    ><dt class="src"
-		      ><a name="v:getPlays" class="def"
-			>getPlays</a
-			> :: Map <a href="TicTacToe.html#t:Point"
-			>Point</a
+		      ><a name="v:getMoves" class="def"
+			>getMoves</a
+			> :: Map <a href="TicTacToe.html#t:Cell"
+			>Cell</a
 			> <a href="TicTacToe.html#t:Mark"
 			>Mark</a
 			></dt
@@ -340,12 +305,12 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	><p class="src"
 	  ><span class="keyword"
 	    >data</span
-	    >  <a name="t:Point" class="def"
-	    >Point</a
+	    >  <a name="t:Cell" class="def"
+	    >Cell</a
 	    >  </p
 	  ><div class="doc"
 	  ><p
-	    >A point is two coordinates.
+	    >A cell is represented by two coordinates.
 </p
 	    ></div
 	  ><div class="subs constructors"
@@ -354,8 +319,8 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	    ><table
 	    ><tr
 	      ><td class="src"
-		><a name="v:Point" class="def"
-		  >Point</a
+		><a name="v:Cell" class="def"
+		  >Cell</a
 		  > Int Int</td
 		><td class="doc empty"
 		>&nbsp;</td
@@ -363,30 +328,30 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	      ></table
 	    ></div
 	  ><div class="subs instances"
-	  ><p id="control.i:Point" class="caption collapser" onclick="toggleSection('i:Point')"
+	  ><p id="control.i:Cell" class="caption collapser" onclick="toggleSection('i:Cell')"
 	    >Instances</p
-	    ><div id="section.i:Point" class="show"
+	    ><div id="section.i:Cell" class="show"
 	    ><table
 	      ><tr
 		><td class="src"
-		  >Eq <a href="TicTacToe.html#t:Point"
-		    >Point</a
+		  >Eq <a href="TicTacToe.html#t:Cell"
+		    >Cell</a
 		    ></td
 		  ><td class="doc empty"
 		  >&nbsp;</td
 		  ></tr
 		><tr
 		><td class="src"
-		  >Ord <a href="TicTacToe.html#t:Point"
-		    >Point</a
+		  >Ord <a href="TicTacToe.html#t:Cell"
+		    >Cell</a
 		    ></td
 		  ><td class="doc empty"
 		  >&nbsp;</td
 		  ></tr
 		><tr
 		><td class="src"
-		  >Show <a href="TicTacToe.html#t:Point"
-		    >Point</a
+		  >Show <a href="TicTacToe.html#t:Cell"
+		    >Cell</a
 		    ></td
 		  ><td class="doc empty"
 		  >&nbsp;</td
@@ -404,7 +369,7 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	    >  </p
 	  ><div class="doc"
 	  ><p
-	    >A mark is either X or O.
+	    >A mark is either an X or O.
 </p
 	    ></div
 	  ><div class="subs constructors"
@@ -413,16 +378,16 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	    ><table
 	    ><tr
 	      ><td class="src"
-		><a name="v:X" class="def"
-		  >X</a
+		><a name="v:MarkX" class="def"
+		  >MarkX</a
 		  ></td
 		><td class="doc empty"
 		>&nbsp;</td
 		></tr
 	      ><tr
 	      ><td class="src"
-		><a name="v:O" class="def"
-		  >O</a
+		><a name="v:MarkO" class="def"
+		  >MarkO</a
 		  ></td
 		><td class="doc empty"
 		>&nbsp;</td
@@ -490,8 +455,8 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	      ><td class="src"
 		><a name="v:Winner" class="def"
 		  >Winner</a
-		  > <a href="TicTacToe.html#t:PlayerName"
-		  >PlayerName</a
+		  > <a href="TicTacToe.html#t:Mark"
+		  >Mark</a
 		  ></td
 		><td class="doc empty"
 		>&nbsp;</td
@@ -523,129 +488,6 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	      ></div
 	    ></div
 	  ></div
-	><div class="top"
-	><p class="src"
-	  ><span class="keyword"
-	    >type</span
-	    > <a name="t:PlayerName" class="def"
-	    >PlayerName</a
-	    > = String</p
-	  ></div
-	><div class="top"
-	><p class="src"
-	  ><span class="keyword"
-	    >data</span
-	    >  <a name="t:Direction" class="def"
-	    >Direction</a
-	    >  </p
-	  ><div class="doc"
-	  ><p
-	    >A direction is a cardinal or ordinal point.
-</p
-	    ></div
-	  ><div class="subs constructors"
-	  ><p class="caption"
-	    >Constructors</p
-	    ><table
-	    ><tr
-	      ><td class="src"
-		><a name="v:N" class="def"
-		  >N</a
-		  ></td
-		><td class="doc empty"
-		>&nbsp;</td
-		></tr
-	      ><tr
-	      ><td class="src"
-		><a name="v:NE" class="def"
-		  >NE</a
-		  ></td
-		><td class="doc empty"
-		>&nbsp;</td
-		></tr
-	      ><tr
-	      ><td class="src"
-		><a name="v:E" class="def"
-		  >E</a
-		  ></td
-		><td class="doc empty"
-		>&nbsp;</td
-		></tr
-	      ><tr
-	      ><td class="src"
-		><a name="v:SE" class="def"
-		  >SE</a
-		  ></td
-		><td class="doc empty"
-		>&nbsp;</td
-		></tr
-	      ><tr
-	      ><td class="src"
-		><a name="v:S" class="def"
-		  >S</a
-		  ></td
-		><td class="doc empty"
-		>&nbsp;</td
-		></tr
-	      ><tr
-	      ><td class="src"
-		><a name="v:SW" class="def"
-		  >SW</a
-		  ></td
-		><td class="doc empty"
-		>&nbsp;</td
-		></tr
-	      ><tr
-	      ><td class="src"
-		><a name="v:W" class="def"
-		  >W</a
-		  ></td
-		><td class="doc empty"
-		>&nbsp;</td
-		></tr
-	      ><tr
-	      ><td class="src"
-		><a name="v:NW" class="def"
-		  >NW</a
-		  ></td
-		><td class="doc empty"
-		>&nbsp;</td
-		></tr
-	      ></table
-	    ></div
-	  ><div class="subs instances"
-	  ><p id="control.i:Direction" class="caption collapser" onclick="toggleSection('i:Direction')"
-	    >Instances</p
-	    ><div id="section.i:Direction" class="show"
-	    ><table
-	      ><tr
-		><td class="src"
-		  >Enum <a href="TicTacToe.html#t:Direction"
-		    >Direction</a
-		    ></td
-		  ><td class="doc empty"
-		  >&nbsp;</td
-		  ></tr
-		><tr
-		><td class="src"
-		  >Eq <a href="TicTacToe.html#t:Direction"
-		    >Direction</a
-		    ></td
-		  ><td class="doc empty"
-		  >&nbsp;</td
-		  ></tr
-		><tr
-		><td class="src"
-		  >Show <a href="TicTacToe.html#t:Direction"
-		    >Direction</a
-		    ></td
-		  ><td class="doc empty"
-		  >&nbsp;</td
-		  ></tr
-		></table
-	      ></div
-	    ></div
-	  ></div
 	><h1 id="g:1"
 	>Core functions
 </h1
@@ -656,20 +498,30 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	    > :: <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    ></p
+	  ><div class="doc"
+	  ><p
+	    >Return an empty, undecided game.
+</p
+	    ></div
 	  ></div
 	><div class="top"
 	><p class="src"
-	  ><a name="v:makePlay" class="def"
-	    >makePlay</a
+	  ><a name="v:makeMove" class="def"
+	    >makeMove</a
 	    > :: <a href="TicTacToe.html#t:Mark"
 	    >Mark</a
-	    > -&gt; <a href="TicTacToe.html#t:Point"
-	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
 	    > -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    > -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    ></p
+	  ><div class="doc"
+	  ><p
+	    >Place a mark on a game if the given cell is unoccupied.
+</p
+	    ></div
 	  ></div
 	><div class="top"
 	><p class="src"
@@ -677,11 +529,16 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	    >ticTacToe</a
 	    > :: <a href="TicTacToe.html#t:Mark"
 	    >Mark</a
-	    > -&gt; <a href="TicTacToe.html#t:Point"
-	    >Point</a
+	    > -&gt; <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
 	    > -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    > -&gt; Bool</p
+	  ><div class="doc"
+	  ><p
+	    >Does a player win the game at a particular cell?
+</p
+	    ></div
 	  ></div
 	><h1 id="g:2"
 	>Supporting functions
@@ -692,66 +549,101 @@ window.onload = function () {pageLoad();setSynopsis("mini_TicTacToe.html");};
 	    >threeInARow</a
 	    > :: <a href="TicTacToe.html#t:Mark"
 	    >Mark</a
-	    > -&gt; <a href="TicTacToe.html#t:Point"
-	    >Point</a
-	    > -&gt; <a href="TicTacToe.html#t:Direction"
+	    > -&gt; <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
+	    > -&gt; <a href="Direction.html#t:Direction"
 	    >Direction</a
 	    > -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    > -&gt; Bool</p
+	  ><div class="doc"
+	  ><p
+	    >Are there three of a particular mark in a row
+ from a particular cell and direction in a game?
+</p
+	    ></div
 	  ></div
 	><div class="top"
 	><p class="src"
 	  ><a name="v:inBounds" class="def"
 	    >inBounds</a
-	    > :: <a href="TicTacToe.html#t:Point"
-	    >Point</a
+	    > :: <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
 	    > -&gt; Bool</p
+	  ><div class="doc"
+	  ><p
+	    >Are some cell coordinates within the bounds of a 3x3 Tic Tac Toe board?
+</p
+	    ></div
 	  ></div
 	><div class="top"
 	><p class="src"
-	  ><a name="v:isValidPlay" class="def"
-	    >isValidPlay</a
-	    > :: <a href="TicTacToe.html#t:Point"
-	    >Point</a
+	  ><a name="v:isValidMove" class="def"
+	    >isValidMove</a
+	    > :: <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
 	    > -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    > -&gt; Bool</p
+	  ><div class="doc"
+	  ><p
+	    >Is a particular cell a valid place to move in a particular game?
+</p
+	    ></div
 	  ></div
-	><h1 id="g:3"
-	>Data.Map function aliases
-</h1
+	><h2 id="g:3"
+	>Data.Map aliases
+</h2
 	><div class="top"
 	><p class="src"
 	  ><a name="v:markAt" class="def"
 	    >markAt</a
-	    > :: <a href="TicTacToe.html#t:Point"
-	    >Point</a
+	    > :: <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
 	    > -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    > -&gt; Maybe <a href="TicTacToe.html#t:Mark"
 	    >Mark</a
 	    ></p
+	  ><div class="doc"
+	  ><p
+	    >Lookup a cell in a game, maybe returning a mark at that cell.
+</p
+	    ></div
 	  ></div
 	><div class="top"
 	><p class="src"
-	  ><a name="v:played" class="def"
-	    >played</a
-	    > :: <a href="TicTacToe.html#t:Point"
-	    >Point</a
+	  ><a name="v:occupied" class="def"
+	    >occupied</a
+	    > :: <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
 	    > -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    > -&gt; Bool</p
+	  ><div class="doc"
+	  ><p
+	    >Is a particular cell in a game occupied?
+</p
+	    ></div
 	  ></div
 	><div class="top"
 	><p class="src"
-	  ><a name="v:notPlayed" class="def"
-	    >notPlayed</a
-	    > :: <a href="TicTacToe.html#t:Point"
-	    >Point</a
+	  ><a name="v:unoccupied" class="def"
+	    >unoccupied</a
+	    > :: <a href="TicTacToe.html#t:Cell"
+	    >Cell</a
 	    > -&gt; <a href="TicTacToe.html#t:Game"
 	    >Game</a
 	    > -&gt; Bool</p
+	  ><div class="doc"
+	  ><p
+	    >Opposite of <code
+	      ><a href="TicTacToe.html#v:occupied"
+		>occupied</a
+		></code
+	      >.
+</p
+	    ></div
 	  ></div
 	></div
       ></div
