@@ -40,7 +40,7 @@ printInstructions :: IO ()
 printInstructions = do
     putStrLn "Take turns making moves until someone gets a 3-in-a-row."
     putStrLn "Enter each move as two digits separated by a space."
-    prompt "Possible coordinates are 0, 1 and 2."
+    prompt "Possible coordinates are 1, 2 and 3."
     return ()
 
 
@@ -64,9 +64,10 @@ playRound nameX nameO game = do
 takeTurn :: Mark -> PlayerName -> Game -> IO Game
 takeTurn mark name game@(Game plays end) = do
     drawGame game
-    cell <- promptForMove name
+    cellInput@(Cell x y) <- promptForMove name
+    let cell = Cell (x-1) (y-1)
     if isValidMove cell game then do
-        describeMove name cell
+        describeMove name cellInput
 
         let game'@(Game plays' _) = makeMove mark cell game
         if ticTacToe mark cell game' then
