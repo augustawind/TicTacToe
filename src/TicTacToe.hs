@@ -21,7 +21,7 @@ module TicTacToe
 import Data.Map (Map, empty, member, notMember, insert, fromList, size)
 import qualified Data.Map as Map (lookup)
 
-import Util (Direction(..), direction)
+import Direction
 
 
 -- |A game is a mapping of cells to marks and an end status.
