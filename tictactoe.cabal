@@ -1,0 +1,22 @@
+Name:           tictactoe
+Version:        0.9
+Synopsis:       A simple, 2-player Tic Tac Toe game.
+License:        LGPL
+License-File:   LICENSE
+Author:         Dustin Rohde
+Maintainer:     dtrohde@fastmail.net
+Category:       Game
+Build-Type:     Simple
+Cabal-Version:  >=1.2
+
+Library
+  hs-source-dirs:   src
+  Exposed-Modules:  TicTacToe
+
+Executable tictactoe
+  hs-source-dirs:   src
+  Main-Is:          Main.hs
+
+source-repository head
+  type:     git
+  location: http://github.com/dustinrohde/TicTacToe/
