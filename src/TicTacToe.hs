@@ -1,3 +1,4 @@
+-- |Game logic for a Tic Tac Toe game.
 module TicTacToe
 ( Game(..)
 , Point(..)
