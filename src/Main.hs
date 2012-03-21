@@ -59,7 +59,7 @@ takePlayerTurn mark name g@(Game plays end) = do
         else
             return g'
     else do
-        putStrLn $ "Invalid move." 
+        putStrLn $ "Invalid move. Try again." 
         takePlayerTurn mark name g
 
 
@@ -70,10 +70,7 @@ gameOver winner loser game = do
         
 
 prompt :: String -> IO String
-prompt st = do
-    putStr st
-    hFlush stdout
-    getLine
+prompt st = putStr st >> hFlush stdout >> getLine
 
 
 promptForName :: String -> IO String

@@ -73,12 +73,12 @@ ticTacToe mark p game = or [threeInARow mark p dir game | dir <- [N .. NW]]
 
 threeInARow :: Mark -> Point -> Direction -> Game -> Bool
 threeInARow mark (Point x y) dir game = if all inBounds points
-                                                  then all (== Just mark) $ marks
-                                                  else False
+                                        then all (== Just mark) marks
+                                        else False
     where marks  = map (`markAt` game) points 
           points = let x1 = if centerX then x-dx else x+dx
-                       y1 = if centerY then y-dy else y+dy
                        x2 = if centerX then x+dx else x1+dx
+                       y1 = if centerY then y-dy else y+dy
                        y2 = if centerY then y+dy else y1+dy
                        centerX  = x == 1
                        centerY  = y == 1
