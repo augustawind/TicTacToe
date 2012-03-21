@@ -3,7 +3,6 @@ module TicTacToe
 , Point(..)
 , Mark(..)
 , EndStatus(..)
-, PlayerName
 , Direction(..)
 -- * Core functions
 , newGame
@@ -34,13 +33,15 @@ data Point = Point Int Int
 
 -- |A mark is either an X or O.
 data Mark = MarkX | MarkO
-            deriving (Show, Eq, Ord)
+            deriving (Eq, Ord)
+
+instance Show Mark where
+    show MarkX = "X"
+    show MarkO = "O"
 
 -- |An end status describes whether a game is over, and how.
 data EndStatus = Undecided | Winner Mark
                   deriving (Show, Eq) 
-
-type PlayerName = String
 
 -- |A direction is a cardinal or ordinal point.
 data Direction = N | NE | E | SE | S | SW | W | NW

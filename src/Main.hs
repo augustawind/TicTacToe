@@ -10,20 +10,29 @@ import TicTacToe
 
 main :: IO ()
 main = do
-    putStrLn "<< TIC TAC TOE >>\n"
+    putStrLn "<< TIC TAC TOE >>"
+    lineBreak
     nameX <- promptForName "Player X"
     nameO <- promptForName "Player O"
+    lineBreak
     presentInstructions
+    lineBreak
     mainLoop nameX nameO newGame
+
+
+lineBreak :: IO ()
+lineBreak = putChar '\n'
 
 
 presentInstructions :: IO ()
 presentInstructions = do
-    putStrLn "\nTake turns making moves until someone gets a 3-in-a-row."
+    putStrLn "Take turns making moves until someone gets a 3-in-a-row."
     putStrLn "Enter each move as two digits separated by a space."
-    prompt "Possible coordinates are 0, 1 and 2.\n"
+    prompt "Possible coordinates are 0, 1 and 2."
     return ()
 
+
+type PlayerName = String
 
 mainLoop :: PlayerName -> PlayerName -> Game -> IO ()
 mainLoop nameX nameO game = do
@@ -58,7 +67,6 @@ gameOver :: PlayerName -> PlayerName -> Game -> IO ()
 gameOver winner loser game = do
     drawGame game
     putStrLn $ winner ++ " wins! Better luck next time, " ++ loser ++ "."
-    return ()
         
 
 prompt :: String -> IO String
@@ -76,13 +84,10 @@ promptForPlay :: PlayerName -> IO Point
 promptForPlay playerName = do
     input <- prompt ('\n':playerName ++ "'s move: ")
     case input of
-        (x:' ':y:[]) -> parseMove input
+        (x:' ':y:[]) -> return $ Point (read [x]) (read [y])
         otherwise    -> do
             putStrLn "Invalid input. Try again."
             promptForPlay playerName
-    where parseMove coordStr = do
-              let xy = break isSpace coordStr
-              return $ Point (read (fst xy)) (read (snd xy))
 
 
 describePlay :: PlayerName -> Point -> IO ()
@@ -92,11 +97,10 @@ describePlay name (Point x y) =
 
 drawGame :: Game -> IO ()
 drawGame game = do
-        sequence_ $ intercalate [putChar '\n']
-                                [[drawCell x y | x <- [0..2]] | y <- [0..2]]
+        sequence_ . intercalate [lineBreak] . reverse $ drawActions
         putStrLn ""
-        return ()
-    where drawCell x' y' = do putStr (getCellStr (Point x' y') game)
+    where drawActions    = [[drawCell x y | x <- [0..2]] | y <- [0..2]]
+          drawCell x' y' = putStr (getCellStr (Point x' y') game)
 
 
 getCellStr :: Point -> Game -> String
