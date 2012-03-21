@@ -79,6 +79,7 @@ takeTurn mark name game@(Game plays end) = do
         takeTurn mark name game
 
 
+-- |Draw a game on the screen.
 drawGame :: Game -> IO ()
 drawGame game = do lineBreak
                    sequence_ . intercalate [lineBreak] . reverse $ actions
@@ -88,11 +89,13 @@ drawGame game = do lineBreak
           pts     = [[Cell x y | x <- [0..2]] | y <- [0..2]]
 
 
+-- |Print some information about a player's move at a cell.
 describeMove :: PlayerName -> Cell -> IO ()
 describeMove name (Cell x y) =
     putStrLn $ name ++ " moves at (" ++ show x ++ ", " ++ show y ++ ")."
 
 
+-- |Draw the final game and congratulate the winner.
 gameOver :: PlayerName -> PlayerName -> Game -> IO ()
 gameOver winner loser game = do
     drawGame game
@@ -116,7 +119,8 @@ promptForMove name = do
             promptForMove name
 
 
+-- |Return a suitable display char for a given cell in a game.
 showCell :: Cell -> Game -> Char
-showCell cell game = if cell `occupies` game
+showCell cell game = if cell `occupied` game
                      then head . show . fromJust . markAt cell $ game
                      else '.'

@@ -14,8 +14,8 @@ module TicTacToe
 , isValidMove
 -- ** Data.Map aliases
 , markAt
-, occupies
-, xOccupies
+, occupied
+, unoccupied
 ) where
 
 import Data.Map (Map, empty, member, notMember, insert, fromList, size)
@@ -46,34 +46,41 @@ data EndStatus = Undecided | Winner Mark
                   deriving (Show, Eq) 
 
 
+-- |Return an empty, undecided game.
 newGame :: Game
 newGame = Game empty Undecided
 
 
+-- |Place a mark on a game if the given cell is unoccupied.
 makeMove :: Mark -> Cell -> Game -> Game
-makeMove mark cell g@(Game moves end) = if inBounds cell
-                                        then Game (insert cell mark moves) end
-                                        else g
+makeMove mark cell gm@(Game moves end) = if inBounds cell
+                                         then Game (insert cell mark moves) end
+                                         else error "Invalid cell coordinates"
 
 
+-- |Are some cell coordinates within the bounds of a 3x3 Tic Tac Toe board?
 inBounds :: Cell -> Bool
 inBounds (Cell x y) = x >= 0 && x < 3
                     && y >= 0 && y < 3
 
 
+-- |Is a particular cell a valid place to move in a particular game?
 isValidMove :: Cell -> Game -> Bool
-isValidMove cell game = inBounds cell && xOccupies cell game
+isValidMove cell gm = inBounds cell && cell `unoccupied` gm
 
 
+-- |Does a player win the game at a particular cell?
 ticTacToe :: Mark -> Cell -> Game -> Bool
-ticTacToe mark p game = or [threeInARow mark p dir game | dir <- [N .. NW]]
+ticTacToe mark cell gm = or [threeInARow mark cell dir gm | dir <- [N .. NW]]
 
 
+-- |Are there three of a particular mark in a row
+-- from a particular cell and direction in a game?
 threeInARow :: Mark -> Cell -> Direction -> Game -> Bool
-threeInARow mark (Cell x y) dir game = if all inBounds cells
-                                        then all (== Just mark) marks
-                                        else False
-    where marks  = map (`markAt` game) cells 
+threeInARow mark (Cell x y) dir gm = if all inBounds cells
+                                     then all (== Just mark) marks
+                                     else False
+    where marks  = map (`markAt` gm) cells 
           cells = let x1 = if centerX then x-dx else x+dx
                       x2 = if centerX then x+dx else x1+dx
                       y1 = if centerY then y-dy else y+dy
@@ -84,13 +91,16 @@ threeInARow mark (Cell x y) dir game = if all inBounds cells
                   in [Cell x y, Cell x1 y1, Cell x2 y2]
 
 
+-- |Lookup a cell in a game, maybe returning a mark at that cell.
 markAt :: Cell -> Game -> Maybe Mark
 markAt cell (Game moves _) = Map.lookup cell moves
 
 
-occupies :: Cell -> Game -> Bool
-cell `occupies` (Game moves _) = cell `member` moves
+-- |Is a particular cell in a game occupied?
+occupied :: Cell -> Game -> Bool
+cell `occupied` (Game moves _) = cell `member` moves
 
 
-xOccupies :: Cell -> Game -> Bool
-cell `xOccupies` (Game moves _) = cell `notMember` moves
+-- |Opposite of 'occupied'.
+unoccupied :: Cell -> Game -> Bool
+cell `unoccupied` (Game moves _) = cell `notMember` moves

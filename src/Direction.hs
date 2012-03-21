@@ -6,7 +6,6 @@ module Direction  where
 data Direction = N | NE | E | SE | S | SW | W | NW
                  deriving (Show, Eq, Enum)
 
-
 -- |Convert a direction to a directional pair (dx, dy).
 direction :: Direction -> (Int, Int)
 direction N  = (0, 1)
