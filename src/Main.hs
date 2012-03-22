@@ -2,6 +2,7 @@
 module Main 
 ( main
 , printInstructions
+, PlayerName
 , playRound
 , takeTurn
 , drawGame
