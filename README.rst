@@ -6,7 +6,6 @@ by Dustin Rohde
 This is my first real program in Haskell, a 2-player game of Tic Tac Toe
 played at the command prompt.
 
-It's basically finished, except that it doesn't detect stalemates.
 Possible future implementations include:
 
     * 1-player games versus computer AI.

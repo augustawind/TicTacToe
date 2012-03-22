@@ -1,23 +1,27 @@
 Name:           tictactoe
 Version:        0.9
-Synopsis:       A simple, 2-player Tic Tac Toe game.
+Synopsis:       A 2-player Tic Tac Toe game played at a text prompt.
+Description:    Two players take turns placing marks on a 3x3 grid.
+                The player that gets three marks in a row wins.
 License:        LGPL
 License-File:   LICENSE
 Author:         Dustin Rohde
 Maintainer:     dtrohde@fastmail.net
 Category:       Game
 Build-Type:     Simple
-Cabal-Version:  >=1.2
+Cabal-Version:  >= 1.6
+
+extra-source-files: README.rst
 
 Library
-  Exposed-Modules:  TicTacToe, Direction
+  Exposed-Modules:  TicTacToe, Main, Direction, Util
   Build-Depends:    base, containers
-  hs-source-dirs:   src
+  hs-source-dirs:     src
 
 Executable tictactoe
   Main-Is:          Main.hs
   Build-Depends:    base
-  hs-source-dirs:   src
+  hs-source-dirs:     src
 
 source-repository head
   type:     git
