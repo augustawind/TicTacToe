@@ -14,14 +14,14 @@ Cabal-Version:  >= 1.6
 extra-source-files: README.rst
 
 Library
-  Exposed-Modules:  TicTacToe, Main, Direction, Util
+  Exposed-Modules:  TicTacToe, Direction
   Build-Depends:    base, containers
-  hs-source-dirs:     src
+  hs-source-dirs:   src
 
 Executable tictactoe
   Main-Is:          Main.hs
   Build-Depends:    base
-  hs-source-dirs:     src
+  hs-source-dirs:   src
 
 source-repository head
   type:     git
