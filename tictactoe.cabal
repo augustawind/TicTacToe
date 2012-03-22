@@ -10,12 +10,14 @@ Build-Type:     Simple
 Cabal-Version:  >=1.2
 
 Library
+  Exposed-Modules:  TicTacToe, Direction
+  Build-Depends:    base, containers
   hs-source-dirs:   src
-  Exposed-Modules:  TicTacToe
 
 Executable tictactoe
-  hs-source-dirs:   src
   Main-Is:          Main.hs
+  Build-Depends:    base
+  hs-source-dirs:   src
 
 source-repository head
   type:     git

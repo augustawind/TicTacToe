@@ -6,13 +6,14 @@ module Main
 , takeTurn
 , drawGame
 , describeMove
-, gameOver
+, gameWon
+, gameStalemate
 , promptForName
 , promptForMove
 , showCell
 ) where
 
-import Control.Monad (sequence_)
+import Control.Monad (sequence_, when, unless)
 import Data.Char (isSpace, intToDigit)
 import Data.List (intercalate)
 import Data.Maybe (fromJust)
@@ -51,12 +52,14 @@ playRound :: PlayerName -> PlayerName -> Game -> IO ()
 playRound nameX nameO game = do
     game'@(Game _ statusX) <- takeTurn MarkX nameX game
     case statusX of
-        Winner MarkX -> gameOver nameX nameO game'
+        Winner MarkX -> gameWon nameX nameO game'
+        Stalemate    -> gameStalemate game'
         Undecided    -> do
 
             game''@(Game _ statusO) <- takeTurn MarkO nameO game'
             case statusO of
-                Winner MarkO -> gameOver nameO nameX game''
+                Winner MarkO -> gameWon nameO nameX game''
+                Stalemate    -> gameStalemate game'
                 Undecided    -> playRound nameX nameO game''
 
 
@@ -68,16 +71,10 @@ takeTurn mark name game@(Game plays end) = do
     let cell = Cell (x-1) (y-1)
     if isValidMove cell game then do
         describeMove name cellInput
-
-        let game'@(Game plays' _) = makeMove mark cell game
-        if ticTacToe mark cell game' then
-            return $ Game plays' (Winner mark)
-        else
-            return game'
-
-    else do
-        putStrLn $ "Invalid move. Try again." 
-        takeTurn mark name game
+        return (updateEndStatus mark cell (makeMove mark cell game))
+        else do
+            putStrLn "Invalid move. Try again."
+            takeTurn mark name game
 
 
 -- |Draw a game on the screen.
@@ -97,11 +94,19 @@ describeMove name (Cell x y) =
 
 
 -- |Draw the final game and congratulate the winner.
-gameOver :: PlayerName -> PlayerName -> Game -> IO ()
-gameOver winner loser game = do
-    drawGame game
+gameWon :: PlayerName -> PlayerName -> Game -> IO ()
+gameWon winner loser gm = do
+    drawGame gm
     lineBreak
     putStrLn $ winner ++ " wins! Better luck next time, " ++ loser ++ "."
+
+
+-- |Draw the final game and empathize over the lack of a firm resolution.
+gameStalemate :: Game -> IO ()
+gameStalemate gm = do
+    drawGame gm
+    lineBreak
+    putStrLn "It's a stalemate! Bummer, man."
 
 
 -- |Prompt for a player's name.

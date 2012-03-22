@@ -8,6 +8,7 @@ module TicTacToe
 , newGame
 , makeMove
 , ticTacToe
+, stalemate
 -- * Supporting functions
 , threeInARow
 , inBounds
@@ -16,6 +17,8 @@ module TicTacToe
 , markAt
 , occupied
 , unoccupied
+-- * Utility
+, updateEndStatus
 ) where
 
 import Data.Map (Map, empty, member, notMember, insert, fromList, size)
@@ -42,7 +45,7 @@ instance Show Mark where
     show MarkO = "O"
 
 -- |An end status describes whether a game is over, and how.
-data EndStatus = Undecided | Winner Mark
+data EndStatus = Undecided | Stalemate | Winner Mark
                   deriving (Show, Eq) 
 
 
@@ -74,6 +77,11 @@ ticTacToe :: Mark -> Cell -> Game -> Bool
 ticTacToe mark cell gm = or [threeInARow mark cell dir gm | dir <- [N .. NW]]
 
 
+-- |Is a game at a stalemate?
+stalemate :: Game -> Bool
+stalemate (Game moves _) = size moves == 9
+
+
 -- |Are there three of a particular mark in a row
 -- from a particular cell and direction in a game?
 threeInARow :: Mark -> Cell -> Direction -> Game -> Bool
@@ -101,3 +109,15 @@ cell `occupied` (Game moves _) = cell `member` moves
 -- |Opposite of 'occupied'.
 unoccupied :: Cell -> Game -> Bool
 cell `unoccupied` (Game moves _) = cell `notMember` moves
+
+
+-- |Update a game's end status to reflect changes made by X or O.
+updateEndStatus :: Mark -> Cell -> Game -> Game
+updateEndStatus mark cell gm@(Game moves _) =
+    if ticTacToe mark cell gm then
+        Game moves (Winner mark)
+    else
+        if stalemate gm then
+            Game moves Stalemate
+        else 
+            gm
