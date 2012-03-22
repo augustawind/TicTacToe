@@ -45,6 +45,7 @@ printInstructions = do
     return ()
 
 
+-- |Name to print when referring to a particular player.
 type PlayerName = String
 
 -- |Execute a round of the game.
