@@ -1,7 +1,7 @@
 -- |General purpose utility functions.
 module Util where
 
-import System.IO (hFlush, stdout)
+import System.IO (stdout, hSetBuffering, BufferMode(LineBuffering))
 
 
 -- |Print a newline.
@@ -10,4 +10,6 @@ lineBreak = putChar '\n'
 
 -- |Print a string and then get some input.
 prompt :: String -> IO String
-prompt st = putStr st >> hFlush stdout >> getLine
+prompt st = do hSetBuffering stdout LineBuffering
+               putStr st
+               getLine
